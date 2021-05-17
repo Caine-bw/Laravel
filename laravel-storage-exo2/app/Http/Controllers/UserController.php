@@ -44,7 +44,7 @@ class UserController extends Controller
         $user ->updated_at=now();
         $user->save();
         $request->file("pdp")->storePublicly("img","public");
-        return redirect()->route("user")->with("message", "Vous avez bien modifié le user : " . $user->nom); 
+        return redirect()->route("user.index")->with("message", "Vous avez bien modifié le user : " . $user->nom); 
        }
 
        public function create(){

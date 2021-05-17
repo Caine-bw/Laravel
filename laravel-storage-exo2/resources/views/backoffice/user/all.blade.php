@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="text-danger d-flex justify-content-center">User</h1>
-    <a class="btn btn-success d-flex justify-content-center " href="/user/create">Ajouter</a>
+    <a class="btn btn-success d-flex justify-content-center " href="{{ "user.create" }}">Ajouter</a>
     @if (session('message'))
         <div class=" alert alert-success">
             {{ session('message') }}
@@ -33,9 +33,9 @@
                 </form>
                 <form action="/user/{{ $user->id}}/download" method="post">
              @csrf
+             @method ("delete")
                 <button class="btn btn-danger btn-sm text-white" type="submit">download</button>
                 </div>
                 </form>
-
-    @endforeach
-@endsection
+        @endforeach
+        @endsection

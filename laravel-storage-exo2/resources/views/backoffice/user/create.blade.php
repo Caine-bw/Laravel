@@ -8,7 +8,7 @@
           @endforeach
 
       </ul>
-        <form method="POST" action="/user/store" enctype="multipart/form-data">
+        <form method="POST" action={{ "users.store" }} enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
               <label class="form-label">nom</label>
