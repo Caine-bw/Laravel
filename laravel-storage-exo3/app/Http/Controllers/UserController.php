@@ -54,6 +54,7 @@ class UserController extends Controller
         $user->mdp = Hash::make($request->mdp) ;
         $user->pdp = $request->file('pdp')->hashName();
         $user->updated_at=now();
+        $user->save();
         $request->file('pdp')->storePublicly("img", "public");
         return redirect()->route('users.index')->with('message','Bienvenue:'. $user->nom);
 
@@ -107,6 +108,7 @@ class UserController extends Controller
         Storage::disk('public')->delete('img/' .$user->pdp);
         $user->pdp = $request->file('pdp')->hashName();
         $user->updated_at=now();
+        $user->save();
         $request->file('pdp')->storePublicly("img", "public");
         return redirect()->route('users.index')->with('message','Vous avez bien modifier l user'. $user->nom);
     }
@@ -120,6 +122,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         Storage::disk('public')->delete('img/' .$user->pdp);
+        $user->delete();
         return Storage::disk('public')->download('img/' .$user->pdp);
     }
 }

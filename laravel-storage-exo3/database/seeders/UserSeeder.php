@@ -31,13 +31,5 @@ class UserSeeder extends Seeder
             'mdp'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'pdp'=>'je te remplie avec une image',
         ]);
-        DB::table("users")->insert([
-            'nom'=>'Ass',
-            'prenom'=>'Ab',
-            'age'=>'2',
-            'email'=>'abden@tqt.com',
-            'mdp'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'pdp'=>'je te remplie avec une image',
-        ]);
     }
 }

@@ -31,7 +31,7 @@
             <td>{{ $user->age }}</td>
             <td>{{ $user->email }}</td>
             <td>{{ $user->mdp }}</td>
-            <td>{{ $user->pdp }}</td>
+            <td><img src={{ asset('img/'. $user->pdp) }} alt=""></td>
             <td>
                 <div class="d-flex">
                     <a href="/user/{{ $user->id }}" class="btn btn-primary mx-1">Edit</a>
