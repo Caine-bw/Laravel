@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -13,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(2);
+        return view('backoffice.user.all', compact('users'));
     }
 
     /**
@@ -23,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('backoffice.user.create');
     }
 
     /**
@@ -34,7 +38,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "nom"=>"required",
+            "prenom"=>"required",
+            "age"=>"required",
+            "mdp"=>"required",
+            "email"=>"required",
+            "pdp"=>"required"
+        ]);
+        $user = new User();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->age = $request->age;
+        $user->email = $request->email;
+        $user->mdp = Hash::make($request->mdp) ;
+        $user->pdp = $request->file('pdp')->hashName();
+        $user->updated_at=now();
+        $request->file('pdp')->storePublicly("img", "public");
+        return redirect()->route('users.index')->with('message','Bienvenue:'. $user->nom);
+
     }
 
     /**
@@ -43,9 +65,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        
+        return view('backoffice.user.read', compact('user'));
     }
 
     /**
@@ -54,9 +77,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('backoffice.user.edit', compact('user'));
     }
 
     /**
@@ -66,9 +89,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            "nom"=>"required",
+            "prenom"=>"required",
+            "age"=>"required",
+            "mdp"=>"required",
+            "email"=>"required",
+            "pdp"=>"required"
+        ]);
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->age = $request->age;
+        $user->email = $request->email;
+        $user->mdp = $request->mdp;
+        Storage::disk('public')->delete('img/' .$user->pdp);
+        $user->pdp = $request->file('pdp')->hashName();
+        $user->updated_at=now();
+        $request->file('pdp')->storePublicly("img", "public");
+        return redirect()->route('users.index')->with('message','Vous avez bien modifier l user'. $user->nom);
     }
 
     /**
@@ -77,8 +117,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        Storage::disk('public')->delete('img/' .$user->pdp);
+        return Storage::disk('public')->download('img/' .$user->pdp);
     }
 }
