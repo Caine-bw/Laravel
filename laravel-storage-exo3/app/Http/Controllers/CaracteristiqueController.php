@@ -14,7 +14,9 @@ class CaracteristiqueController extends Controller
      */
     public function index()
     {
-        //
+        $caracteristiques = Caracteristique::paginate(5);
+        return view('backoffice.caracteristique.all', compact('caracteristiques'));
+
     }
 
     /**
@@ -24,7 +26,7 @@ class CaracteristiqueController extends Controller
      */
     public function create()
     {
-        //
+        return view('backoffice.caracteristique.create');
     }
 
     /**
@@ -35,7 +37,20 @@ class CaracteristiqueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'icone' => 'required',
+            'chiffres' => 'required|integer',
+            'nom' => 'required',
+        ]);
+        $caracteristique = new Caracteristique();
+        $caracteristique->icone = $request->icone;
+        $caracteristique->chiffres = $request->chiffres;
+        $caracteristique->nom = $request->nom;
+        $caracteristique->created_at = now();
+        $caracteristique->save();
+        return redirect()->route('caracteristiques.index')
+            ->with('message', 'Vous avez bien créée une nouvelle caractéritisque :' . $caracteristique->nom);
+
     }
 
     /**
@@ -46,7 +61,7 @@ class CaracteristiqueController extends Controller
      */
     public function show(Caracteristique $caracteristique)
     {
-        //
+        return view('backoffice.caracteristique.read', compact('caracteristique'));
     }
 
     /**
@@ -57,7 +72,7 @@ class CaracteristiqueController extends Controller
      */
     public function edit(Caracteristique $caracteristique)
     {
-        //
+        return view('backoffice.caracteristique.edit', compact('caracteristique'));
     }
 
     /**
@@ -69,7 +84,18 @@ class CaracteristiqueController extends Controller
      */
     public function update(Request $request, Caracteristique $caracteristique)
     {
-        //
+        $request->validate([
+            'icone' => 'required',
+            'chiffres' => 'required|integer',
+            'nom' => 'required',
+        ]);
+        $caracteristique->icone = $request->icone;
+        $caracteristique->chiffres = $request->chiffres;
+        $caracteristique->nom = $request->nom;
+        $caracteristique->updated_at = now();
+        $caracteristique->save();
+        return redirect()->route('caracteristiques.index')
+            ->with('message', 'Vous avez bien modifiée la caractéritisque :' . $caracteristique->nom);
     }
 
     /**
@@ -80,6 +106,7 @@ class CaracteristiqueController extends Controller
      */
     public function destroy(Caracteristique $caracteristique)
     {
-        //
+        $caracteristique->delete();
+        return redirect()->back();
     }
 }

@@ -8,8 +8,9 @@
           @endforeach
 
       </ul>
-        <form method="POST" action="{{ route("users.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="/users/{{($user->id) }}" enctype="multipart/form-data">
             @csrf
+            @method("put")
             <div class="mb-3">
               <label class="form-label">nom</label>
               <input value="{{ $user->nom }}" type="text" class="form-control"  name="nom">

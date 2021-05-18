@@ -1,7 +1,7 @@
 @extends('layout/app')
 @section('content')
-    <div class="container">
-        <h1 class="text-danger">User</h1>
+    <div class="container bg-light shadow mt-5">
+        <h1 class="text-pirmary">User</h1>
         <a href={{ route("users.create") }} class="btn btn-primary">Creer</a>
 
     @if (session('message'))
@@ -26,7 +26,7 @@
             @foreach ($users as $user)
           <tr>
             <th scope="row">{{ $user->id }}</th>
-            <td>{{ $user->nom }}</td>
+            <td><a href="/users/{{ $user->id }}">{{ $user->nom}}</a></td>
             <td>{{ $user->prenom }}</td>
             <td>{{ $user->age }}</td>
             <td>{{ $user->email }}</td>
@@ -34,7 +34,7 @@
             <td><img src={{ asset('img/'. $user->pdp) }} alt=""></td>
             <td>
                 <div class="d-flex">
-                    <a href="/user/{{ $user->id }}" class="btn btn-primary mx-1">Edit</a>
+                    <a href="/users/{{ $user->id }}/edit" class="btn btn-primary mx-1">Edit</a>
                     <form action="/users/{{ $user->id }}" method="POST">
                         @csrf
                         @method('delete')

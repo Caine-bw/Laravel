@@ -123,6 +123,10 @@ class UserController extends Controller
     {
         Storage::disk('public')->delete('img/' .$user->pdp);
         $user->delete();
-        return Storage::disk('public')->download('img/' .$user->pdp);
+        return redirect()->back();
+    }
+    public function download($id){
+        $user = User::find($id);
+        return Storage::disk('public')->download('img/'.$user->pdp);
     }
 }
