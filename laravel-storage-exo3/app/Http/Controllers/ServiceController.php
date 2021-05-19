@@ -14,7 +14,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::paginate(5);
+        return view('backoffice.service.all', compact('services'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('backoffice.service.create');
     }
 
     /**
@@ -35,7 +36,20 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'icone' => 'required',
+            'titre' => 'required',
+            'description' => 'required',
+        ]);
+        $service = new Service();
+        $service->icone = $request->icone;
+        $service->titre = $request->titre;
+        $service->description = $request->description;
+        $service->created_at = now();
+        $service->save();
+        return redirect()->route('services.index')
+            ->with('message', 'Vous avez bien créé un nouveau service :' . $service->titre);
+
     }
 
     /**
@@ -46,7 +60,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+         return view('backoffice.service.read', compact('service'));
     }
 
     /**
@@ -57,7 +71,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        return view('backoffice.service.edit', compact('service'));
     }
 
     /**
@@ -69,7 +83,18 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        $request->validate([
+            'icone' => 'required',
+            'titre' => 'required',
+            'description' => 'required',
+        ]);
+        $service->icone = $request->icone;
+        $service->titre = $request->titre;
+        $service->description = $request->description;
+        $service->updated_at = now();
+        $service->save();
+        return redirect()->route('services.index')
+            ->with('message', 'Vous avez bien modifié leu service :' . $service->titre);
     }
 
     /**
@@ -80,6 +105,7 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $service->delete();
+        return redirect()->back();
     }
 }

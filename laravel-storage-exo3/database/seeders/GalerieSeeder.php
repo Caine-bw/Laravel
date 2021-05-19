@@ -13,6 +13,20 @@ class GalerieSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table("galeries")->insert([
+            'nom'=>'Galerie',
+            'image'=>'je vais mettre une image',
+            'description'=>'Une description'
+        ]);
+        DB::table("galeries")->insert([
+            'nom'=>'Galerie',
+            'image'=>'je vais mettre une image',
+            'description'=>'Une description'
+        ]);
+        DB::table("galeries")->insert([
+            'nom'=>'Galerie',
+            'image'=>'je vais mettre une image',
+            'description'=>'Une description'
+        ]);
     }
 }

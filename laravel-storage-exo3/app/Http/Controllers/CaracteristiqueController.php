@@ -14,7 +14,7 @@ class CaracteristiqueController extends Controller
      */
     public function index()
     {
-        $caracteristiques = Caracteristique::paginate(5);
+        $caracteristiques = Caracteristique::paginate(4);
         return view('backoffice.caracteristique.all', compact('caracteristiques'));
 
     }

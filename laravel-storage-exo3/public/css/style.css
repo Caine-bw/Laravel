@@ -1,0 +1,19 @@
+.navbar {
+		    padding-left: 0.5rem;
+			}
+			.navbar-expand-lg {
+			  padding-left: 1rem;
+			}
+
+			.border-right {
+				border-right: 1px solid #43474b!important;
+			}
+
+      .list-group-item {
+        padding: 0.8rem 1rem 0.8rem 1rem;
+			}
+
+      #sidebar-wrapper .sidebar-heading {
+        padding: 0.7rem 1.25rem 0.9rem 1rem;
+		  }
+		

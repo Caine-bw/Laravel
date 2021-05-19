@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
-    <section class="container">
-        <h2 class="text-center my-4 bg-danger">Edit</h2>
+    <section class="container-fluid mx-5 shadow">
+        <h2 class="text-center pt-5 my-4 mx-5 border-bottom fs-1">Edit User : {{$user->nom}}</h2>
         <ul>
           @foreach ($errors->all() as $message) 
               <li>{{ $message }}</li>
@@ -36,7 +36,7 @@
               <input value="{{ $user->pdp }}" type="file" class="form-control"  name="pdp">
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary text-white w-100 mb-3 mt-5">Submit</button>
           </form>
     </section>
 @endsection
