@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource("/albums", AlbumController::class);
+Route::resource("photos", PhotoController::class);
+Route::post("/photos/{id}/download", [PhotoController::class, "download"]);
